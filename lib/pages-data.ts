@@ -100,15 +100,26 @@ export const MF_TOOLS = [
  * NEW TO MARKET — resources published by Kalpataru
  * ------------------------------------------------------------------ */
 
-export const NTM_RESOURCES = [
+export interface NtmResource {
+  label: string;
+  kind: 'PDF' | 'PPT';
+  href: string;
+  desc: string;
+  /**
+   * Devanagari lead for a Hindi document. The renderer wraps it in lang="hi"
+   * so assistive tech switches voice — WCAG 3.1.2 needs the language of a
+   * passage identified when it differs from the page's.
+   */
+  hi?: string;
+}
+
+export const NTM_RESOURCES: NtmResource[] = [
   { label: 'Margin Pledge', kind: 'PDF', href: 'https://www.kalpatarumulti.com/files/newtomarket/Margin_Pledge.pdf', desc: 'How the margin pledge system works and what you need to authorise.' },
   { label: 'ANMI–Secmark FAQ on Margin', kind: 'PDF', href: 'https://www.kalpatarumulti.com/files/newtomarket/ANMI_Secmark_FAQ_on_Margin_2Sep2020.pdf', desc: 'Industry FAQ on the September 2020 margin rules.' },
   { label: 'Pledge Mechanism', kind: 'PPT', href: 'https://www.kalpatarumulti.com/files/newtomarket/pledge_mechanism.pptx', desc: 'Step-by-step walkthrough of the depository pledge mechanism.' },
-  // `hi` holds the Devanagari lead so the page can mark it lang="hi" —
-  // WCAG 3.1.2 needs the language of a passage identified, and these two sit
-  // inside an otherwise English page.
-  { label: 'Union Budget 2016 — Key Features (Hindi)', kind: 'PDF', href: 'https://www.kalpatarumulti.com/files/pdf/Budget_2016_keyfeature_hindi.pdf', hi: 'बजट की मुख्य बातें', desc: 'Key budget features in Hindi.' },
-  { label: 'Rail Budget Highlights (Hindi)', kind: 'PDF', href: 'https://www.kalpatarumulti.com/files/pdf/rail_budget_highlights_hindi.pdf', hi: 'रेल बजट की मुख्य बातें', desc: 'Rail budget highlights in Hindi.' },
+  // The two 2016 budget summaries that used to sit here were removed along
+  // with the Archive group on the downloads page — same documents, and both
+  // nine years stale.
 ];
 
 export const GOLD_ROUTES = [
@@ -178,7 +189,7 @@ export const ACCOUNT_OPENING_ROUTES: OpeningRoute[] = [
   {
     key: 'offline',
     title: 'Offline — physical form',
-    strap: 'At any of our 22 branches, or by post.',
+    strap: 'At any of our Bhopal branches, or by post.',
     steps: [
       'Download and print the account opening and KYC forms, or collect a set from any branch.',
       'Fill the KYC form in your own handwriting, strike off every blank, and never sign an incomplete form.',
@@ -288,18 +299,17 @@ export const ACCOUNT_SERVICES: AccountService[] = [
     summary:
       'Refresh your KYC and update the details held against your trading and demat account — address, mobile number, email ID, bank account, income range or signature. Keeping your own mobile number and email registered is what makes the exchange and depository alerts reach you directly.',
     timeline: 'Updated with the KRA and CKYCR within 10 days of a complete request.',
-    portalLabel: 'Open the Re-KYC Portal',
-    altLabel: 'Or raise it from the Back Office',
+    portalLabel: 'Open the Back Office',
     steps: [
-      'Open the Re-KYC and modification portal and sign in with your PAN and registered mobile number.',
+      'Sign in to the back office with your client ID, then open the modification request.',
       'Select the details you need to change and upload the supporting proof — an address proof, a cancelled cheque or a bank statement, as applicable.',
       'Authenticate with the OTP sent to your registered mobile and email, and complete the Aadhaar-based e-sign.',
       'We verify the request, update your records with the KRA and CKYCR, and confirm the change by email.',
     ],
     forms: [
-      { label: 'Account Modification Form', href: 'https://www.kalpatarumulti.com/files/download/modi.pdf' },
+      { label: 'Account Modification Form', href: '/files/download/modi.pdf' },
       { label: 'KYC Form for KRA', href: 'https://www.kalpatarumulti.com/files/download/Kyc_Form_New.pdf' },
-      { label: 'Demo — Account Modification (Online)', href: 'https://www.kalpatarumulti.com/files/download/MODIFY.pdf' },
+      { label: 'Demo — Account Modification (Online)', href: '/files/download/MODIFY.pdf' },
     ],
     desk: {
       person: 'Mr. Vinod Singh',
